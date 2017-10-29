@@ -22,4 +22,9 @@ public class Department {
     this.name = name;
     this.location = location;
   }
+
+  @Override
+  public String toString() {
+    return String.format("[name=%s, location=%s]", name, location);
+  }
 }

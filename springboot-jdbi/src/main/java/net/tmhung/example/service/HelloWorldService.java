@@ -1,6 +1,7 @@
 package net.tmhung.example.service;
 
 import net.tmhung.example.domain.Department;
+import net.tmhung.example.repository.DepartmentRepository;
 import net.tmhung.example.repository.DepartmentRowMapper;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
@@ -30,12 +31,15 @@ public class HelloWorldService implements CommandLineRunner {
   public List<Department> getAllDepartmentsWithJdbcTemplate() {
     return jdbcTemplate.query("select * from department", rowMapper);
   }
+
+  @Transactional
+  public List<Department> getAllDepartments() {
+    DepartmentRepository departmentRepository = dbi.onDemand(DepartmentRepository.class);
+    return departmentRepository.getAllDepartments();
+  }
+
   @Override
   public void run(String... args) throws Exception {
-//    DepartmentRepository departmentRepository = dbi.onDemand(DepartmentRepository.class);
-//    Department department = departmentRepository.findNameById(1);
-//    logger.warn("Hello World!!");
-//    dbi.close(departmentRepository);
-    getAllDepartmentsWithJdbcTemplate().forEach(department -> logger.info(department.toString()));
+    getAllDepartments().forEach(department -> logger.info(department.toString()));
   }
 }

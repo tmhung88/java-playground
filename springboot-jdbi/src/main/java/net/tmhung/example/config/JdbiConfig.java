@@ -6,13 +6,13 @@ import org.skife.jdbi.v2.DBI;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @EnableTransactionManagement
-//@PropertySource("classpath:hikari.properties")
-//@ConfigurationProperties()
 public class JdbiConfig extends HikariConfig {
   @Bean
   DataSource dataSource() {
@@ -25,7 +25,13 @@ public class JdbiConfig extends HikariConfig {
   }
 
   @Bean
+  PlatformTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
+
+  @Bean
   DBI dbi(DataSource dataSource) {
+
      return new DBI(dataSource);
   }
 }

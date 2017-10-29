@@ -10,6 +10,4 @@ public interface DepartmentRepository {
   @SqlQuery("select * from department")
   @Mapper(DepartmentMapper.class)
   List<Department> getAllDepartments();
-
-  void close();
 }

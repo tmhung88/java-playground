@@ -2,13 +2,11 @@ package net.tmhung.example.service;
 
 import net.tmhung.example.domain.Department;
 import net.tmhung.example.repository.DepartmentRepository;
-import net.tmhung.example.repository.DepartmentRowMapper;
 import org.skife.jdbi.v2.IDBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +18,6 @@ public class HelloWorldService implements CommandLineRunner {
 
   @Autowired
   private IDBI idbi;
-
-  @Autowired
-  private NamedParameterJdbcTemplate jdbcTemplate;
-
-  @Autowired
-  private DepartmentRowMapper rowMapper;
-
-  @Transactional
-  public List<Department> getAllDepartmentsWithJdbcTemplate() {
-    return jdbcTemplate.query("select * from department", rowMapper);
-  }
 
   @Transactional
   public List<Department> getAllDepartments() {

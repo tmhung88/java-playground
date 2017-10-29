@@ -11,15 +11,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @EnableTransactionManagement
-@PropertySource("classpath:hikari.properties")
-@ConfigurationProperties()
+//@PropertySource("classpath:hikari.properties")
+//@ConfigurationProperties()
 public class JdbiConfig extends HikariConfig {
   @Bean
   DataSource dataSource() {
     HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("jdbc:mysql://localhost:3306/test");
-    config.setUsername("test");
-    config.setPassword("test");
+    config.setJdbcUrl("jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:/db.sql'");
+    config.setUsername("sa");
+    config.setUsername("");
+
     return new HikariDataSource(config);
   }
 

@@ -1,7 +1,6 @@
 package net.tmhung.example.repository;
 
 import net.tmhung.example.domain.Department;
-import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 

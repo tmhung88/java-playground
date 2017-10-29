@@ -4,7 +4,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.skife.jdbi.v2.IDBI;
 import org.skife.jdbi.v2.spring.DBIFactoryBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -12,20 +15,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @EnableTransactionManagement
+@PropertySource("classpath:hikari.properties")
 public class JdbiConfig extends HikariConfig {
   @Bean
-  DataSource dataSource() {
-    HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:/db.sql'");
-    config.setUsername("sa");
-    config.setUsername("");
-
-    return new HikariDataSource(config);
+  @ConfigurationProperties("datasource")
+  public DataSource dataSource() {
+    return DataSourceBuilder.create()
+      .type(HikariDataSource.class).build();
   }
 
+
   @Bean
-   PlatformTransactionManager transactionManager() {
-    return new DataSourceTransactionManager(dataSource());
+   PlatformTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
   }
 
   @Bean

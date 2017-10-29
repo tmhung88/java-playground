@@ -6,14 +6,13 @@ import net.tmhung.example.config.SpringBootConfig;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+
 public class App {
 
   public static void main(String[] args) throws Exception {
     new SpringApplicationBuilder()
-      .sources(SpringBootConfig.class, JdbiConfig.class, ServiceConfig.class)
       .bannerMode(Banner.Mode.OFF)
+      .sources(SpringBootConfig.class, JdbiConfig.class, ServiceConfig.class)
       .run(args);
-
   }
-
 }

@@ -1,0 +1,1 @@
+An example on how to configure JDBI + Spring Transaction + Spring Boot

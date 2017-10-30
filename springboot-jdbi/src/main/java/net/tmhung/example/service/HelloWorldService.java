@@ -2,7 +2,6 @@ package net.tmhung.example.service;
 
 import net.tmhung.example.domain.Department;
 import net.tmhung.example.repository.DepartmentRepository;
-import net.tmhung.example.repository.SimpleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,11 @@ public class HelloWorldService implements CommandLineRunner {
   private static final Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
 
   @Autowired
-//  private DepartmentRepository departmentRepository;
-  private SimpleRepository simpleRepository;
+  private DepartmentRepository departmentRepository;
+
   @Transactional
   public List<Department> getAllDepartments() {
-    return simpleRepository.getAllDepartments();
+    return departmentRepository.getAllDepartments();
   }
 
   @Override

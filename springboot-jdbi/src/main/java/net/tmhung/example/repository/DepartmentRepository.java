@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
 
-
+@JdbiRepository
 public interface DepartmentRepository {
   @SqlQuery("select * from department")
   @Mapper(DepartmentMapper.class)

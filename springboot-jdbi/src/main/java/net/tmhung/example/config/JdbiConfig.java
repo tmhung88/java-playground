@@ -42,6 +42,7 @@ public class JdbiConfig extends HikariConfig {
 
   @Bean
   public IDBI idbi(DBIFactoryBean dbiFactoryBean) throws Exception {
+
     return dbiFactoryBean.getObject();
   }
 }

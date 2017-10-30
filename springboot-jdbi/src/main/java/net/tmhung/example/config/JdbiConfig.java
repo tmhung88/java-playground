@@ -2,11 +2,14 @@ package net.tmhung.example.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import net.tmhung.example.spring.jdbi.JdbiRepositoryScan;
+import net.tmhung.example.spring.jdbi.JdbiRepositoryScanRegistrar;
 import org.skife.jdbi.v2.IDBI;
 import org.skife.jdbi.v2.spring.DBIFactoryBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,6 +19,8 @@ import javax.sql.DataSource;
 
 @EnableTransactionManagement
 @PropertySource("classpath:hikari.properties")
+@Import(JdbiRepositoryScanRegistrar.class)
+@JdbiRepositoryScan("net.tmhung.example.repository")
 public class JdbiConfig extends HikariConfig {
   @Bean
   @ConfigurationProperties("datasource")

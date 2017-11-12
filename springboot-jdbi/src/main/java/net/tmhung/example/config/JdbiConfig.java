@@ -2,7 +2,7 @@ package net.tmhung.example.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import net.tmhung.example.spring.jdbi.JdbiRepositoryScan;
+import net.tmhung.example.spring.jdbi.EnableJdbiRepository;
 import net.tmhung.example.spring.jdbi.JdbiRepositoryScanRegistrar;
 import org.skife.jdbi.v2.IDBI;
 import org.skife.jdbi.v2.spring.DBIFactoryBean;
@@ -19,9 +19,9 @@ import javax.sql.DataSource;
 
 @EnableTransactionManagement
 @PropertySource("classpath:hikari.properties")
-@Import(JdbiRepositoryScanRegistrar.class)
-@JdbiRepositoryScan("net.tmhung.example.repository")
+@EnableJdbiRepository("net.tmhung.example.repository")
 public class JdbiConfig extends HikariConfig {
+  public static final String JDBI_FACTORY_BEAN_NAME = "idbi";
   @Bean
   @ConfigurationProperties("datasource")
   public DataSource dataSource() {
@@ -40,9 +40,10 @@ public class JdbiConfig extends HikariConfig {
     return new DBIFactoryBean(dataSource);
   }
 
-  @Bean
+  @Bean(JDBI_FACTORY_BEAN_NAME)
   public IDBI idbi(DBIFactoryBean dbiFactoryBean) throws Exception {
-
     return dbiFactoryBean.getObject();
   }
+
+
 }

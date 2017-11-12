@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import({JdbiRepositoryScanRegistrar.class})
-public @interface JdbiRepositoryScan {
+public @interface EnableJdbiRepository {
 
   String[] value() default {};
 }

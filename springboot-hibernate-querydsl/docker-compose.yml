@@ -1,0 +1,12 @@
+database:
+  image: mysql
+  container_name: mysql
+  command: mysqld --user=root --verbose
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_DATABASE: "playground"
+    MYSQL_USER: "playground"
+    MYSQL_PASSWORD: "abcd1234"
+    MYSQL_ROOT_PASSWORD: "abcd1234"
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
